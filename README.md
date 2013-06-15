@@ -2,6 +2,7 @@ cordova.pluginLoader
 ====================
 
 Suggested change to plugin module definition for cordova.
+In my project I wanted to use require.js to dynamically load plugin modules, but the current implementation does not lend itself to this.
 
 The current implementation of plugin module definitions is:
 
@@ -84,7 +85,10 @@ Loader Option 2 - Flexible definition
 Greater flexibility could be offered in the default cordova library without (as much) need for developer customisation.
 e.g.
 
+    // Define available plugin modes
     cordova.pluginModes = { STANDARD: 0, CLASSIC: 1, AMD: 2 }
+    
+    ...
     
     // cordova initialization - determine pluginMode
     if (typeof define === 'function' && define.amd) {
@@ -92,6 +96,8 @@ e.g.
     } else {
       cordova.pluginMode = cordova.pluginModes.STANDARD;
     }
+    
+    ...
     
     // Define switchable pluginLoader
     cordova.pluginLoader = function(pluginName, factory) {
